@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Web.API.Services;
 
 namespace Web.API
 {
@@ -28,6 +29,7 @@ namespace Web.API
         {
 
             services.AddControllers();
+            services.AddHttpClient<QuizService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Web.API", Version = "v1" });
