@@ -20,9 +20,9 @@ namespace Web.API.Controllers
         }
 
         [HttpGet()]
-        public async Task Test()
+        public async Task<IActionResult> Test()
         {
-            await _service.CreateNewQuiz(new QuizCreateRequest()
+            var quiz = await _service.CreateNewQuiz(new QuizCreateRequest()
             {
                 Title = "test",
                 Quiz = new QuizData()
@@ -30,9 +30,24 @@ namespace Web.API.Controllers
                     Description = "test",
                     ImageUrl = "test",
                     Title = "test",
-                    Questions = { }
+                    Questions =
+                    {
+                        new QuestionData()
+                        {
+                            Title = "What's the biggest animal in the world?"
+                        },
+                        new QuestionData()
+                        {
+                            Title = "Which country is brie cheese originally from?"
+                        }
+                    }
                 }
             });
+
+            if (quiz == null)
+                throw new ArgumentNullException(nameof(quiz));
+
+            return new JsonResult(quiz);
         }
     }
 }
